@@ -36,7 +36,6 @@ try:
     age = float(st.text_input('Yaş', '30'))
     sibsp = int(st.text_input('Yanınızdaki kardeş/eş sayısı (SibSp)', '0'))
     parch = int(st.text_input('Yanınızdaki ebeveyn/çocuk sayısı (Parch)', '0'))
-    fare = float(st.text_input('Bilet Ücreti (Min: 0.0, Max: 500.0)', '30.0')) # Updated here
 except ValueError:
     st.error('Lütfen sayısal alanlara geçerli sayılar girin.')
     st.stop()
@@ -55,7 +54,6 @@ if st.button('Tahmin Yap'):
         'Age': age,
         'SibSp': sibsp,
         'Parch': parch,
-        'Fare': fare,
         'Embarked': embarked_value
     }])
 
@@ -64,7 +62,7 @@ if st.button('Tahmin Yap'):
 
     # Tahmin yap
     prediction_probability = model.predict(scaled_data)[0][0]
-    
+
     st.subheader('Tahmin Sonucu:')
     if prediction_probability > 0.5:
         st.success(f'Hayatta Kalma olasılığınız: **%{prediction_probability*100:.2f}** - **Yaşayacaksınız!**')
